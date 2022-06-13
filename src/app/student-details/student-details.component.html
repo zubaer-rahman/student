@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <h1 style="color: aliceblue">Student</h1>
         <div class="d-flex">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Student</button>
+            <button (click)="addStudent()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Student</button>
         </div>
     </div>
 </nav>
@@ -10,7 +10,7 @@
 <table class="table ms-5 me-5">
     <thead>
         <tr>
-            <th scope="col"> ID </th>
+            <th scope="col"> Id </th>
             <th scope="col"> Name </th>
             <th scope="col"> Address </th>
             <th scope="col"> Phone Number </th>
@@ -20,16 +20,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let row of studentDetails">
-            <td> {{row.id}} </td>
-            <td> {{row.name}} </td>
-            <td> {{row.address}} </td>
-            <td> {{row.phone}} </td>
-            <td> {{row.email}} </td>
-            <td> {{row.education}} </td>
+        <tr *ngFor= "let row of map | keyvalue">
+            <td> {{row.value.id}} </td>
+            <td> {{row.value.name}} </td>
+            <td> {{row.value.address}} </td>
+            <td> {{row.value.phone}} </td>
+            <td> {{row.value.email}} </td>
+            <td> {{row.value.education}} </td>
             <td>
-                <button class="btn btn-info"> Edit </button>
-                <button class="btn btn-danger ms-4"> Delete </button>
+                <button (click)="onEdit(row)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit </button>
+                <button  (click)="deleteStudent(row)" class="btn btn-danger ms-4"> Delete </button>
             </td>
         </tr>
     </tbody>
@@ -45,35 +45,48 @@
         </div>
         <div class="modal-body">
             <form [formGroup] = "form">
-              <div class="mb-3">
-                <label for="id" class="form-label">Id</label>
-                <input type="text" formControlName="id" class="form-control" id="id">
-               </div>
-                <div class="mb-3">
+                <div class="mb-3 form-group">
                   <label for="name" class="form-label">Name</label>
                   <input type="text" formControlName="name" class="form-control" id="name">
+                  <span class="text-danger" *ngIf="form.controls['name'].touched && form.controls['name'].invalid"> 
+                    <span *ngIf="form.controls['name'].errors?.['required']"> Name is required! </span>
+                    
+                  </span>  
                  </div>
-                <div class="mb-3">
+                <div class="mb-3 form-group">
                   <label for="addrees" class="form-label">Address</label>
                   <input type="text" formControlName="address" class="form-control" id="address">
+                  <span class="text-danger" *ngIf="form.controls['address'].touched && form.controls['address'].invalid"> 
+                    <span *ngIf="form.controls['address'].errors?.['required']"> Address name is required! </span>
+                  </span>  
                 </div>
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Phone NUmber</label>
-                  <input type="number" formControlName="phone" class="form-control" id="phone">
+                <div class="mb-3 form-group">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="text" formControlName="phone" class="form-control" id="phone">
+                  <span class="text-danger" *ngIf="form.controls['phone'].touched && form.controls['phone'].invalid"> 
+                    <span *ngIf="form.controls['phone'].errors?.['required']"> Phone number name is required! </span>
+                    <span *ngIf="form.controls['phone'].errors?.['phoneRegex']"> Should match bangladeshi standard!</span>
+                  </span>  
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 form-group">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" formControlName="email" class="form-control" id="email">
+                  <span class="text-danger" *ngIf="form.controls['email'].touched && form.controls['email'].invalid"> 
+                    <span *ngIf="form.controls['email'].errors?.['required']"> Email name is required! </span>
+                    <span *ngIf="form.controls['email'].errors?.['emailRegex']"> Should match valid format of email!</span>
+                  </span>       
                 </div>
-                <div class="mb-3">
+                 
+                <div class="mb-3 form-group">
                   <label for="education" class="form-label">Educational Qualification</label>
                   <input type="text" formControlName="education" class="form-control" id="education">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" (click)="addStudentDetails()" class="btn btn-primary">Add</button>
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button"  *ngIf="showAdd" (click)="addStudentDetails()" class="btn btn-primary">Add</button>
+          <button type="button" *ngIf="showUpdate" (click)="updateStudent()" class="btn btn-primary">Update</button>
         </div>
       </div>
     </div>
