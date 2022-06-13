@@ -52,8 +52,6 @@ export class StudentDetailsComponent implements OnInit {
       this.studentData.email = this.form.value.email;
       this.studentData.education = this.form.value.education;
       this.map.set(this.studentData.id, this.studentData);
-       
-      console.log(this.form);
       
 
       this.studentDetails.push(this.studentData);
