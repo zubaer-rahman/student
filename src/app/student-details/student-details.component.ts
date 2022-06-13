@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentDetailValidator } from './student-details.validators'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StudentModel } from './student-details.model';
+import { EducationModel } from './education-details.model';
 
 @Component({
   selector: 'student-details',
@@ -12,10 +13,13 @@ export class StudentDetailsComponent implements OnInit {
 
   form!: FormGroup;
   studentData: StudentModel= new StudentModel;
+  eduData: EducationModel= new EducationModel;
+
 
   studentDetails:any = [];
 
-  map:Map<number,StudentModel> = new Map ();
+  map: Map<number,StudentModel> = new Map ();
+  eduMap: Map<string,EducationModel> = new Map ();
 
   showAdd!: boolean;
   showUpdate!: boolean;
@@ -31,7 +35,11 @@ export class StudentDetailsComponent implements OnInit {
       address: ['',Validators.required],
       phone: ['',[Validators.required,StudentDetailValidator.phoneRegex]],
       email: ['',[Validators.required,StudentDetailValidator.emailRegex]],
-      education: ['']
+      degree: [''],
+      institute: [''],
+      grade: [''],
+      from_date: [''],
+      to_date: ['']
     });
    }
    addStudent(){
@@ -46,18 +54,17 @@ export class StudentDetailsComponent implements OnInit {
       this.studentData= new StudentModel;
       this.studentData.id = this.map.size+1;
       this.studentData.name = this.form.value.name;
-      this.studentData.name = this.form.value.name;
       this.studentData.address = this.form.value.address;
       this.studentData.phone = this.form.value.phone;
       this.studentData.email = this.form.value.email;
-      this.studentData.education = this.form.value.education;
+      this.studentData.education = this.eduMap;
       this.map.set(this.studentData.id, this.studentData);
       
 
       this.studentDetails.push(this.studentData);
       let ref = document.getElementById('cancel');
-      ref?.click();
-      this.form.reset();
+      // ref?.click();
+      // this.form.reset();
 
      }else{
        alert("Phone number already been used")
@@ -90,11 +97,31 @@ export class StudentDetailsComponent implements OnInit {
     this.studentData.education = this.form.value.education;
     this.map.set(this.rowUpdate, this.studentData)
     let ref = document.getElementById('cancel');
-    ref?.click();
-    this.form.reset();
+    // ref?.click();
+    // this.form.reset();
+  }
 
- 
+  addEdu(){
+    this.eduData = new EducationModel;
+
+    this.eduData.degree = this.form.value.degree;
+    this.eduData.institute = this.form.value.institute;
+    this.eduData.grade = this.form.value.grade;
+    this.eduData.from_date = this.form.value.from_date;
+    this.eduData.to_date = this.form.value.to_date;
+
+    this.eduMap.set(this.eduData.degree, this.eduData);
+
+    console.log(this.eduData);
+    console.log(this.eduMap);
     
+    
+     
+  }
+  showModal(){
+    this.eduMap = new Map();
+    document.getElementById('addStu')?.setAttribute("data-bs-toggle", "modal")
+    document.getElementById('addStu')?.setAttribute("data-bs-target", "#exampleModal")  
   }
 
 

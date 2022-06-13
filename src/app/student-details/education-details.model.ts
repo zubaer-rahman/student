@@ -1,5 +1,5 @@
 export class EducationModel{
-    name: string = '';
+    degree: string = '';
     institute: string = '';
     grade: string = '';
     from_date: string = '';

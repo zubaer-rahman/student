@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <h1 style="color: aliceblue">Student</h1>
         <div class="d-flex">
-            <button (click)="addStudent()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Student</button>
+            <button id="addStu" (click)="addStudent()" (click)="showModal()" type="button" class="btn btn-success">Add Student</button>
         </div>
     </div>
 </nav>
@@ -26,7 +26,7 @@
             <td> {{row.value.address}} </td>
             <td> {{row.value.phone}} </td>
             <td> {{row.value.email}} </td>
-            <td> {{row.value.education}} </td>
+            <td>  <button>SEE eduQua</button> </td>
             <td>
                 <button (click)="onEdit(row)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit </button>
                 <button  (click)="deleteStudent(row)" class="btn btn-danger ms-4"> Delete </button>
@@ -36,14 +36,14 @@
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Student</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body form-wrapper">
             <form [formGroup] = "form">
                 <div class="mb-3 form-group">
                   <label for="name" class="form-label">Name</label>
@@ -76,14 +76,39 @@
                     <span *ngIf="form.controls['email'].errors?.['emailRegex']"> Should match valid format of email!</span>
                   </span>       
                 </div>
-                 
+                  
+  
+                <!-- <label  class="form-label"> Educational Qualification</label> -->
+                    
+                
                 <div class="mb-3 form-group">
-                  <label for="education" class="form-label">Educational Qualification</label>
-                  <input type="text" formControlName="education" class="form-control" id="education">
+                  <label for="degree" class="form-label">Degree</label>
+                  <input type="text" formControlName="degree" class="form-control" id="degree">
+
                 </div>
+                <div class="mb-3 form-group">
+                  <label for="institute" class="form-label">Institute</label>
+                  <input type="text" formControlName="institute" class="form-control" id="institute">
+
+                </div>
+                <div class="mb-3 form-group">
+                  <label for="grade" class="form-label">Grade</label>
+                  <input type="text" formControlName="grade" class="form-control" id="grade">
+                </div>
+                <div class="mb-3 form-group">
+                  <label for="from_date" class="form-label">From Date</label>
+                  <input type="text" formControlName="from_date" class="form-control" id="from_date">
+                </div> 
+                <div class="mb-3 form-group">
+                  <label for="to_date" class="form-label">To Date</label>
+                  <input type="text" formControlName="to_date" class="form-control" id="to_date">
+                </div> 
+                
+              
              </form>
         </div>
         <div class="modal-footer">
+          <button (click)="addEdu()"  type="submit" id="toggleEduModal" class="ms-4 btn btn-info"><span style="font-size:20px; font-weight: 800; "> + </span></button>
           <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" [disabled]="form.invalid" *ngIf="showAdd" (click)="addStudentDetails()" class="btn btn-primary">Add</button>
           <button type="submit" [disabled]="form.invalid"  *ngIf="showUpdate" (click)="updateStudent()" class="btn btn-primary">Update</button>
@@ -91,3 +116,47 @@
       </div>
     </div>
 </div>
+
+<!-- EduDetails -->
+
+<!-- <div class="modal fade" id="eduModal" tabindex="-1" aria-labelledby="eduModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eduModalLabel">Qualification Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup] = "form">
+                <div class="mb-3 form-group">
+                  <label for="degree" class="form-label">Degree</label>
+                  <input type="text" formControlName="degree" class="form-control" id="degree">
+
+                </div>
+                <div class="mb-3 form-group">
+                  <label for="institute" class="form-label">Institute</label>
+                  <input type="text" formControlName="institute" class="form-control" id="institute">
+
+                </div>
+                <div class="mb-3 form-group">
+                  <label for="grade" class="form-label">Grade</label>
+                  <input type="text" formControlName="grade" class="form-control" id="grade">
+                </div>
+                <div class="mb-3 form-group">
+                  <label for="from_date" class="form-label">From Date</label>
+                  <input type="text" formControlName="from_date" class="form-control" id="from_date">
+                </div> 
+                <div class="mb-3 form-group">
+                  <label for="to_date" class="form-label">To Date</label>
+                  <input type="text" formControlName="to_date" class="form-control" id="to_date">
+                </div> 
+           </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div> -->
