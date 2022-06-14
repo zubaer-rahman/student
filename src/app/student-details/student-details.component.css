@@ -1,0 +1,13 @@
+#eduTable th{
+    background-color: aliceblue;
+}
+#eduTable{
+    max-width: 975px;
+    height: auto;
+}
+.education{
+    background-color: wheat;
+    padding: 0px 15px 10px 15px;
+    margin: 5px 15px 0px 15px;
+    border-radius: 10px;
+}
