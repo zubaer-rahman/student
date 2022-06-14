@@ -5,5 +5,5 @@ export class StudentModel {
     address: string = '';
     phone: string = '';
     email: string = '';
-    education: Map <number, EducationModel> = new Map();
+    education: Map <string, EducationModel> = new Map();
 }

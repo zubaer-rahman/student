@@ -14,11 +14,13 @@ export class StudentDetailsComponent implements OnInit {
   form!: FormGroup;
   studentData: StudentModel= new StudentModel;
   eduData: EducationModel= new EducationModel;
-  tempEduData: any;  
+  tempEduData: EducationModel = new EducationModel ; 
+  tempStuData: StudentModel = new StudentModel; 
 
   map: Map<number,StudentModel> = new Map ();
-  eduMap: Map<number,EducationModel> = new Map ();
-  tempEduMap:  Map<number,EducationModel> = new Map ();
+  eduMap: Map<string,EducationModel> = new Map ();
+ 
+  tempEduMap:  Map<string,EducationModel> = new Map ();
 
   showAdd!: boolean;
   showUpdate!: boolean;
@@ -61,13 +63,14 @@ export class StudentDetailsComponent implements OnInit {
       this.studentData.education = this.eduMap;
       this.map.set(this.studentData.id, this.studentData);
 
-      console.log(this.studentData);
       console.log(this.map);
       
-
      }else{
        alert("Phone number already been used")
      }
+     let ref = document.getElementById('cancel');
+     ref?.click();
+     this.form.reset();
     
   }
   deleteStudent(row: any) {
@@ -84,14 +87,8 @@ export class StudentDetailsComponent implements OnInit {
     this.form.controls['phone'].setValue(row.value.phone);
     this.form.controls['email'].setValue(row.value.email);
     this.form.controls['education'].setValue(row.value.education);
-
-    // this.form.controls['degree'].setValue(row.value.degree);
-    // this.form.controls['institute'].setValue(row.value.institute);
-    // this.form.controls['grade'].setValue(row.value.grade);
-    // this.form.controls['from_date'].setValue(row.value.from_date);
-    // this.form.controls['to_date'].setValue(row.value.to_date);
-
   }
+  
   updateStudent(){
     this.studentData= new StudentModel;
     this.studentData.id = this.rowUpdate;
@@ -105,50 +102,33 @@ export class StudentDetailsComponent implements OnInit {
     ref?.click();
     this.form.reset();
   }
-  addEducation(){
-    
-  }
 
   addEdu(){
-    console.log("addEdu is clicked");
-    this.eduMap = new Map();
     this.eduData = new EducationModel;
-    this.eduData.id = this.eduMap.size+1;
     this.eduData.degree = this.form.value.degree;
     this.eduData.institute = this.form.value.institute;
     this.eduData.grade = this.form.value.grade;
     this.eduData.from_date = this.form.value.from_date;
     this.eduData.to_date = this.form.value.to_date;
 
-    this.eduMap.set(this.eduData.id, this.eduData);
+    this.eduMap.set(this.eduData.degree, this.eduData);
 
-    console.log(this.eduData);
-    console.log(this.eduMap);
-
-    let ref = document.getElementById('cancel');
-    ref?.click();
-    this.form.reset();
-    
   }
  
   isClicked(row: any){
     this.clicked =true;
-    
-    this.tempEduMap = new Map();
-    this.tempEduData = this.eduMap.get(row.value.id)
 
-    this.tempEduMap.set(row.value.id, this.tempEduData )
-
-    console.log(this.eduMap);
-    
+    this.tempStuData = this.map.get(row.value.id) as StudentModel;
+    this.tempEduMap = this.tempStuData.education ;
   
   }
-  hideEduTable(row: any){
+  hideEduTable(){
     this.clicked =false;
      
   }
-
-
+  iniEdu(){
+    this.eduMap = new Map();
+  }
 }
  
 

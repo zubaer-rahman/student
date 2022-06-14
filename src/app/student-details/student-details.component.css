@@ -2,12 +2,33 @@
     background-color: aliceblue;
 }
 #eduTable{
-    max-width: 975px;
+    max-width: 900px;
     height: auto;
 }
 .education{
     background-color: wheat;
     padding: 0px 15px 10px 15px;
-    margin: 5px 15px 0px 15px;
     border-radius: 10px;
+}
+
+#from_date{
+    max-width: 32%;
+}
+#to_date{
+    max-width: 32%;
+    margin-left: 2%;
+}
+#degree, #grade{
+    max-width: 32%;
+    margin-left: 5%;
+
+}
+#cancel{
+     display: none;
+}
+#seeEdu{
+    border: none;
+    color: red;
+    text-decoration: underline;
+    background-color: transparent;
 }

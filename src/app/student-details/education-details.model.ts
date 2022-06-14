@@ -1,5 +1,4 @@
 export class EducationModel{
-    id: number = 0;
     degree: string = '';
     institute: string = '';
     grade: string = '';
